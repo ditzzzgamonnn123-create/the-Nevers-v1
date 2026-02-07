@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGS Project - Welcome</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: white;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+        }
+
+        #background-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 40px;
+            backdrop-filter: blur(15px);
+            padding: 35px;
+            max-width: 650px; /* Lebar kontainer diperbesar */
+            width: 90%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .gambar-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s ease;
+        }
+
+        img:hover {
+            transform: scale(1.08);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+            margin: 0;
+            font-size: 2.8em; /* Ukuran font sedikit diperbesar */
+            background: linear-gradient(90deg, #00dbde, #fc00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 500;
+            font-size: 1.6em; /* Ukuran font diperbesar */
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Container untuk button di dalam kontainer utama */
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .button-wrapper {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        button {
+            background: linear-gradient(45deg, #23a6d5, #23d5ab);
+            color: white;
+            border: none;
+            padding: 16px 45px;
+            font-size: 1.25em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            display: block;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+        }
+
+        button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+            background: linear-gradient(45deg, #23d5ab, #23a6d5);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-developer {
+            background: linear-gradient(45deg, #8e44ad, #9b59b6);
+        }
+
+        .btn-developer:hover {
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+        }
+
+        a {
+            text-decoration: none;
+            display: block;
+            width: 100%;
+        }
+
+        .warning {
+            background-color: rgba(255, 0, 0, 0.2);
+            padding: 18px;
+            border-radius: 20px;
+            margin: 25px 0;
+            border: 2px solid rgba(255, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.1);
+        }
+
+        .warning h4 {
+            color: #ff4444;
+            font-size: 1.35em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .warning p {
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.6;
+            font-size: 1.05em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 30px;
+                padding: 30px 25px;
+                max-width: 550px;
+            }
+            
+            img {
+                width: 160px;
+                height: 160px;
+            }
+            
+            h1 {
+                font-size: 2.4em;
+            }
+            
+            h2 {
+                font-size: 1.4em;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .button-wrapper {
+                min-width: 250px;
+            }
+            
+            button {
+                padding: 15px 40px;
+                font-size: 1.2em;
+            }
+            
+            .warning {
+                padding: 16px;
+                margin: 20px 0;
+                max-width: 500px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                border-radius: 25px;
+                padding: 25px 20px;
+                max-width: 450px;
+            }
+            
+            img {
+                width: 140px;
+                height: 140px;
+                border-width: 5px;
+            }
+            
+            h1 {
+                font-size: 2.1em;
+            }
+            
+            h2 {
+                font-size: 1.3em;
+                margin-bottom: 25px;
+            }
+            
+            .button-wrapper {
+                min-width: 220px;
+            }
+            
+            button {
+                padding: 14px 35px;
+                font-size: 1.15em;
+            }
+            
+            .warning {
+                padding: 15px;
+                max-width: 400px;
+            }
+            
+            .warning h4 {
+                font-size: 1.25em;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .container {
+                max-width: 320px;
+                padding: 20px 15px;
+            }
+            
+            img {
+                width: 120px;
+                height: 120px;
+            }
+            
+            h1 {
+                font-size: 1.9em;
+            }
+            
+            h2 {
+                font-size: 1.2em;
+            }
+            
+            .button-wrapper {
+                min-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="background-canvas"></canvas>
+    
+    <div class="main-content">
+        <div class="container">
+            <div class="gambar-container">
+            </div>
+            <h1>APK NEVERS</h1>
+            <h2>BERANDA</h2>
+            
+<!-- Button sekarang di dalam kontainer utama -->
+            <div class="buttons-container">
+                <div class="button-wrapper">
+                    <a href="https://ditzzzgamonnn123-create.github.io/Unlock/" target="_blank" rel="noopener noreferrer">
+                        <button>FF BETA</button>
+                    </a>
+                </div>
+                
+                <div class="button-wrapper">
+                    <a href="https://ditzzzgamonnn123-create.github.io/Punc/" target="_blank">
+                        <button class="btn-developer">FILE AIMHS</button>
+                    </a>
+                </div>
+                
+                <div class="button-wrapper">
+                    <a href=https://ditzzzgamonnn123-create.github.io/Beta/ target="_blank">
+                        <button class="btn-developer">FFv7a-FFv8a</button>
+                    </a>
+                </div>
+              
+                  
+                <div class="button-wrapper">
+                    <a href="https://drive.google.com/file/d/1Y1V9eVE9jLX2fGwFuCb6-VlZ5jdVMCqK/view?usp=drivesdk">
+                        <button class="btn-developer">OPEN Tutorial</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Setup canvas
+        const canvas = document.getElementById('background-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Set canvas size to window size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        // Initial resize
+        resizeCanvas();
+        
+        // Resize canvas when window is resized
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Particle class
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+                this.color = getRandomColor();
+            }
+            
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                // Bounce off walls
+                if (this.x > canvas.width) {
+                    this.speedX = -Math.abs(this.speedX);
+                }
+                if (this.x < 0) {
+                    this.speedX = Math.abs(this.speedX);
+                }
+                if (this.y > canvas.height) {
+                    this.speedY = -Math.abs(this.speedY);
+                }
+                if (this.y < 0) {
+                    this.speedY = Math.abs(this.speedY);
+                }
+            }
+            
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Glow effect
+                ctx.shadowColor = this.color;
+                ctx.shadowBlur = 8;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+        
+        // Variables
+        let particles = [];
+        
+        // Initialize particles
+        function initParticles() {
+            particles = [];
+            // Adjust number of particles based on screen size
+            const particleCount = Math.floor((canvas.width * canvas.height) / 7000);
+            
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        
+        // Get random color
+        function getRandomColor() {
+            const colors = [
+                '#8e44ad', '#9b59b6', '#e74c3c',
+                '#23a6d5', '#23d5ab', '#3498db',
+                '#00dbde', '#fc00ff', '#8A2BE2'
+            ];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        // Draw connecting lines between particles
+        function drawLines() {
+            const maxDistance = 120;
+            
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    // Draw line if particles are close enough
+                    if (distance < maxDistance) {
+                        const opacity = 1 - (distance / maxDistance);
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.2})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+        
+        // Animation loop
+        function animate() {
+            // Clear canvas with a slight fade effect
+            ctx.fillStyle = 'rgba(15, 12, 41, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Update and draw particles
+            for (let particle of particles) {
+                particle.update();
+                particle.draw();
+            }
+            
+            // Draw connecting lines
+            drawLines();
+            
+            // Continue animation
+            requestAnimationFrame(animate);
+        }
+        
+        // Initialize and start animation
+        initParticles();
+        animate();
+        
+        // Reinitialize particles when window is resized
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            setTimeout(initParticles, 100);
+        });
+        
+        // Handle image loading error
+        const profileImg = document.querySelector('img');
+        if (profileImg) {
+            profileImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="%23302b63"/><text x="100" y="100" font-family="Arial" font-size="50" fill="white" text-anchor="middle" dy=".3em">AGS</text></svg>';
+                this.alt = "Default Profile Image";
+            };
+        }
+        
+        // Add click effects to buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.6);
+                    transform: scale(0);
+                    animation: ripple 0.7s ease-out;
+                    width: ${size}px;
+                    height: ${size}px;
+                    top: ${y}px;
+                    left: ${x}px;
+                    pointer-events: none;
+                `;
+                
+                this.appendChild(ripple);
+                
+                // Remove ripple after animation
+                setTimeout(() => {
+                    ripple.remove();
+                }, 700);
+            });
+        });
+        
+        // Add ripple animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(3.5);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
